@@ -20,6 +20,9 @@ body {
 // Down is 40
     
 function checkKeys(event){
+    
+    // udlr arrows
+    
     if(event.keyCode == 37){
         moveleft();
     }
@@ -30,6 +33,21 @@ function checkKeys(event){
         moveright();
     }
     if(event.keycode == 40){
+        movedown();
+    }
+    
+    // WASD
+    
+    if(event.keyCode == 65){
+        moveleft();
+    }
+    if(event.keyCode == 87){
+        moveup();
+    }
+    if(event.keycode == 68){
+        moveright();
+    }
+    if(event.keycode == 83){
         movedown();
     }
 }
