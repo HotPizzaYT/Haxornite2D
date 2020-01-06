@@ -5,13 +5,34 @@
 <style>
 canvas {
     border:1px solid #d3d3d3;
-    background-color: #f1f1f1;
+    background-color: #000000;
+}
+body {
+    margin: 0px;
 }
 </style>
 </head>
-<body onload="startGame()">
+<body onload="startGame()" onkeydown="checkKeys(event)">
 <script>
-
+// Left is 37
+// Up is 38
+// Right is 39
+// Down is 40
+    
+function checkKeys(event){
+    if(event.keyCode == 37){
+        moveleft();
+    }
+    if(event.keyCode == 38){
+        moveup();
+    }
+    if(event.keycode == 39){
+        moveright();
+    }
+    if(event.keycode == 40){
+        movedown();
+    }
+}
 var myGamePiece;
 
 function startGame() {
@@ -24,6 +45,7 @@ var myGameArea = {
     start : function() {
         this.canvas.width = screen.width;
         this.canvas.height = screen.width;
+        this.canvas.onkeydown = "checkKeys(event)";
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.interval = setInterval(updateGameArea, 20);
@@ -73,13 +95,5 @@ function moveright() {
     myGamePiece.speedX += 1; 
 }
 </script>
-<div style="text-align:center;width:480px;">
-  <button onclick="moveup()">UP</button><br><br>
-  <button onclick="moveleft()">LEFT</button>
-  <button onclick="moveright()">RIGHT</button><br><br>
-  <button onclick="movedown()">DOWN</button>
-</div>
-
-<p>If you click a button the red square will start moving. Click the same button many times, and it will move faster and faster.</p>
 </body>
 </html>
