@@ -62,7 +62,7 @@ var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
         this.canvas.width = screen.width;
-        this.canvas.height = screen.width;
+        this.canvas.height = screen.height;
         this.canvas.onkeydown = "checkKeys(event)";
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
