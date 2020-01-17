@@ -1,117 +1,96 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<style>
-canvas {
-    border:1px solid #d3d3d3;
-    background-color: #000000;
-}
-body {
-    margin: 0px;
-}
+<html lang="en">
+
+<style type="text/css">
+  h1 {
+	  font-family: Arial, Helvetica, sans-serif;
+	  color: #F00;
+	  font-size: x-large;
+  }
+  p {
+	  font-family: Arial, Helvetica, sans-serif;
+	  color: #000;
+	  font-size: small;
+  }
+  body {
+	  background-color: #FFF;
+  }
+  #bloctxt {
+	  border-left-width: 5px;
+	  border-left-style: solid;
+	  border-left-color: #F00;
+	  padding-left: 10px;
+	  position: absolute;
+	  left: 50%%;
+	  width: 600px;
+	  margin-left: -260px
+  }
 </style>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  
+  <!-- Enables full-screen on iOS devices -->
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="HandheldFriendly" content="true" />
+
+  <title>Clickteam Fusion Developer 2.5 HTML5 Runtime</title>
+
+	<script>
+	   	// Detection of old browsers that do not support the canvas element
+		// Falls back to a default page
+	    if (!document.createElement("canvas").getContext)
+	    {
+			window.open("http://www.clickteam.com/html5/html5-fallback.html", "_self");
+		}
+	</script>
+
+
+  	<!-- EXTRASOURCES -->
+    <!-- Loads the Javascript code...-->
+    <script src="src/Runtime.js"></script>
+
+  <script>
+
+	// Detection of when the html file is ran locally.
+	// You can remove this code for the final version
+	if (window.location.protocol == "file:")
+	{
+		document.write('<div id="bloctxt">');
+		document.write('<h1>The application cannot be run...</h1>');
+		document.write('<p>HTML browsers do not allow you to launch data files directly from the file system.<br>');
+		document.write('A drag & drop of the html file on a web-browser window will not work, on any machine.<br>');
+		document.write('Please use the Build & Run option (it opens a local web server) to run your application,<br>') 
+		document.write('or upload your application folder to a remote web-server, and start it from there...</p>');
+		document.write('</div>');
+		throw new error("Cannot run application");
+	}
+  </script>
 </head>
-<body onload="startGame()" onkeydown="checkKeys(event)">
+
+<body>
+  <div>
+    <div style="position:absolute; top:0px; left:0px; -webkit-user-select: none;">
+    <canvas id="MMFCanvas" width="1920" height="1080">
+    	Your browser does not support Canvas.
+    </canvas>    
+    </div>
+  </div>
+
 <script>
-// Left is 37
-// Up is 38
-// Right is 39
-// Down is 40
-    
-function checkKeys(event){
-    
-    // udlr arrows
-    
-    if(event.keyCode == 37){
-        moveleft();
+    // RUNTIMESTART
+    // This is where the HTML5 runtime is actually started
+    window.addEventListener("load", windowLoaded, false);
+    function windowLoaded()
+    {
+        // Calls the runtime
+        // First parameter : name of the canvas element
+        // Second parameter : path to the cch file. Images and sounds must lay beside this file
+        new Runtime("MMFCanvas", "resources/Haxornite2D.cch");
     }
-    if(event.keyCode == 38){
-        moveup();
-    }
-    if(event.keycode == 39){
-        moveright();
-    }
-    if(event.keycode == 40){
-        movedown();
-    }
-    
-    // WASD
-    
-    if(event.keyCode == 65){
-        moveleft();
-    }
-    if(event.keyCode == 87){
-        moveup();
-    }
-    if(event.keycode == 68){
-        moveright();
-    }
-    if(event.keycode == 83){
-        movedown();
-    }
-}
-var myGamePiece;
-
-function startGame() {
-    myGamePiece = new component(30, 30, "red", 10, 120);
-    myGameArea.start();
-}
-
-var myGameArea = {
-    canvas : document.createElement("canvas"),
-    start : function() {
-        this.canvas.width = screen.width;
-        this.canvas.height = screen.height;
-        this.canvas.onkeydown = "checkKeys(event)";
-        this.context = this.canvas.getContext("2d");
-        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-        this.interval = setInterval(updateGameArea, 20);
-    },
-    clear : function() {
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    }
-}
-
-function component(width, height, color, x, y) {
-    this.width = width;
-    this.height = height;
-    this.speedX = 0;
-    this.speedY = 0;
-    this.x = x;
-    this.y = y;    
-    this.update = function() {
-        ctx = myGameArea.context;
-        ctx.fillStyle = color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-    }
-    this.newPos = function() {
-        this.x += this.speedX;
-        this.y += this.speedY;        
-    }    
-}
-
-function updateGameArea() {
-    myGameArea.clear();
-    myGamePiece.newPos();    
-    myGamePiece.update();
-}
-
-function moveup() {
-    myGamePiece.speedY -= 1; 
-}
-
-function movedown() {
-    myGamePiece.speedY += 1; 
-}
-
-function moveleft() {
-    myGamePiece.speedX -= 1; 
-}
-
-function moveright() {
-    myGamePiece.speedX += 1; 
-}
+    // RUNTIMESTARTEND
 </script>
+
 </body>
 </html>
