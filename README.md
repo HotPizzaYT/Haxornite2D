@@ -3,8 +3,8 @@ The old cancelled game Haxornite finally releases in 2D! (Web)
 
 # Where can I play
 
-Play the game here:
-https://haxornite.xyz/
+Currently, Haxornite.xyz is down. Here's a mirror of the game:
+http://play.hxhide.tk/hxn
 
 # Important info
 Sadly, Haxornite 2 is no longer in development. You will still be able to play the original 2D game on the site.
